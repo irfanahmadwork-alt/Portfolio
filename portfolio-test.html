@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A sample biomedical science student portfolio website.">
+  <title>Alex Morgan | Biomedical Science Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2e;
+      --panel-light: #17223a;
+      --text: #edf3ff;
+      --muted: #a6b3cc;
+      --accent: #69e0c2;
+      --accent-2: #82aaff;
+      --line: rgba(255,255,255,.11);
+      --max: 1080px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 80% 0%, rgba(72, 119, 184, .17), transparent 34rem),
+        radial-gradient(ellipse at 0% 35%, rgba(56, 205, 174, .09), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(11,16,32,.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-weight: 800; letter-spacing: -.04em; font-size: 1.12rem; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: .92rem; }
+    .nav-links a:hover { color: var(--accent); }
+    .menu-button { display: none; border: 1px solid var(--line); color: var(--text); background: var(--panel); border-radius: 10px; padding: 8px 12px; }
+    .hero { padding: 96px 0 78px; display: grid; grid-template-columns: 1.45fr .75fr; align-items: center; gap: 56px; }
+    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .16em; font-size: .76rem; font-weight: 800; }
+    h1 { font-size: clamp(2.7rem, 6vw, 5.15rem); line-height: 1.03; letter-spacing: -.065em; margin: 18px 0 24px; }
+    h1 em { color: var(--accent); font-style: normal; }
+    .intro { max-width: 620px; font-size: 1.1rem; color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 12px; font-weight: 750; border: 1px solid var(--line); transition: transform .2s, border-color .2s; }
+    .button:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .button.primary { background: var(--accent); color: #081b1a; border-color: transparent; }
+    .profile-card { padding: 26px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(145deg, rgba(25,38,62,.95), rgba(15,22,40,.92)); box-shadow: 0 24px 70px rgba(0,0,0,.22); }
+    .avatar { width: 76px; height: 76px; border-radius: 22px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #0b1020; font-size: 1.55rem; font-weight: 900; }
+    .profile-card h2 { margin: 18px 0 3px; font-size: 1.35rem; }
+    .profile-card p { color: var(--muted); margin: 0; }
+    .status { display: inline-flex; align-items: center; gap: 8px; font-size: .83rem; margin-top: 22px; padding: 7px 10px; background: rgba(105,224,194,.09); border: 1px solid rgba(105,224,194,.2); color: var(--accent); border-radius: 999px; }
+    .status:before { content: ""; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+    section { padding: 68px 0; border-top: 1px solid var(--line); }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 30px; }
+    .section-heading h2 { margin: 8px 0 0; font-size: clamp(1.8rem, 4vw, 2.65rem); letter-spacing: -.045em; line-height: 1.15; }
+    .section-heading p { color: var(--muted); max-width: 420px; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { padding: 23px; border: 1px solid var(--line); background: rgba(18,26,46,.8); border-radius: 18px; }
+    .card .icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: rgba(105,224,194,.1); color: var(--accent); font-size: 1.2rem; }
+    .card h3 { margin: 17px 0 8px; font-size: 1.1rem; }
+    .card p { color: var(--muted); font-size: .94rem; margin: 0; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tag { border: 1px solid var(--line); color: #c7d5ec; padding: 5px 9px; border-radius: 999px; font-size: .77rem; }
+    .timeline { display: grid; gap: 14px; }
+    .timeline-item { display: grid; grid-template-columns: 145px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .timeline-item:last-child { border-bottom: 0; }
+    .date { color: var(--accent); font-weight: 750; font-size: .88rem; }
+    .timeline-item h3 { margin: 0 0 5px; }
+    .timeline-item p { margin: 0; color: var(--muted); }
+    .contact-panel { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 32px; border-radius: 22px; border: 1px solid rgba(105,224,194,.25); background: linear-gradient(120deg, rgba(105,224,194,.09), rgba(130,170,255,.07)); }
+    .contact-panel h2 { margin: 0 0 8px; font-size: clamp(1.6rem, 4vw, 2.4rem); letter-spacing: -.04em; }
+    .contact-panel p { margin: 0; color: var(--muted); }
+    footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .86rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; padding: 68px 0 52px; gap: 32px; }
+      .profile-card { max-width: 480px; }
+      .grid { grid-template-columns: 1fr; }
+      .section-heading { align-items: start; flex-direction: column; }
+      .contact-panel { align-items: start; flex-direction: column; padding: 24px; }
+      .nav-links { display: none; position: absolute; top: 71px; left: 0; right: 0; padding: 18px 20px; background: #0d1426; border-bottom: 1px solid var(--line); flex-direction: column; align-items: start; }
+      .nav-links.open { display: flex; }
+      .menu-button { display: block; }
+      .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="#home">AM<span>.</span></a>
+      <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="navLinks">Menu ☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#interests">Research interests</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="wrap hero" id="home">
+      <div>
+        <div class="eyebrow">Biomedical Science · Research Portfolio</div>
+        <h1>Curious about life.<br>Focused on <em>discovery.</em></h1>
+        <p class="intro">Hello, I'm Alex Morgan — a biomedical science student interested in microbiology, infectious disease, and the research that turns scientific questions into practical knowledge.</p>
+        <div class="actions">
+          <a class="button primary" href="#projects">Explore my work <span aria-hidden="true">&nbsp;↗</span></a>
+          <a class="button" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <aside class="profile-card" aria-label="Profile summary">
+        <div class="avatar" aria-hidden="true">AM</div>
+        <h2>Alex Morgan</h2>
+        <p>BSc Biomedical Science Student</p>
+        <p>London, United Kingdom</p>
+        <div class="status">Open to research opportunities</div>
+        <div class="tag-list">
+          <span class="tag">Microbiology</span>
+          <span class="tag">Laboratory skills</span>
+          <span class="tag">Scientific writing</span>
+        </div>
+      </aside>
+    </div>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><div class="eyebrow">A little about me</div><h2>Science starts with<br>a good question.</h2></div>
+          <p>This sample profile is fictional and designed to test a GitHub Pages deployment. Replace the name, details, projects, and contact links with your own information.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="icon" aria-hidden="true">⌬</div>
+            <h3>Scientific curiosity</h3>
+            <p>Interested in how microorganisms interact with their hosts and environments, and how research can improve our understanding of disease.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">⚗</div>
+            <h3>Practical learning</h3>
+            <p>Building confidence with laboratory procedures, careful record keeping, quality practices, and interpreting experimental results.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">↗</div>
+            <h3>Future direction</h3>
+            <p>Looking to develop research experience, collaborate with scientists, and communicate complex ideas in a clear and accessible way.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="interests">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><div class="eyebrow">What I want to explore</div><h2>Research interests</h2></div>
+          <p>Topics that inspire further reading, thoughtful questions, and future project ideas.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Microbiology & infection</h3>
+            <p>Microbial growth, host–pathogen interactions, antimicrobial resistance, and the methods used to investigate microorganisms.</p>
+            <div class="tag-list"><span class="tag">Bacteria</span><span class="tag">Pathogens</span><span class="tag">AMR</span></div>
+          </article>
+          <article class="card">
+            <h3>Cellular mechanisms</h3>
+            <p>How cells respond to stress, communicate, and change their behaviour under different biological conditions.</p>
+            <div class="tag-list"><span class="tag">Cell biology</span><span class="tag">Mechanisms</span></div>
+          </article>
+          <article class="card">
+            <h3>Research methods</h3>
+            <p>Experimental design, reproducibility, data visualisation, and evidence-based interpretation of scientific findings.</p>
+            <div class="tag-list"><span class="tag">Data</span><span class="tag">Methods</span><span class="tag">Evidence</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><div class="eyebrow">Selected work</div><h2>Projects & learning</h2></div>
+          <p>Example portfolio entries. These are placeholders, not claims of completed work.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="eyebrow">Sample project 01</div>
+            <h3>Exploring antimicrobial resistance</h3>
+            <p>A proposed literature review examining how resistance develops, how it spreads, and why antimicrobial stewardship matters.</p>
+            <div class="tag-list"><span class="tag">Literature review</span><span class="tag">In progress</span></div>
+          </article>
+          <article class="card">
+            <div class="eyebrow">Sample project 02</div>
+            <h3>Making experimental data clearer</h3>
+            <p>A demonstration concept for turning a small, anonymised dataset into a clear chart with appropriate labels and interpretation.</p>
+            <div class="tag-list"><span class="tag">Data visualisation</span><span class="tag">Communication</span></div>
+          </article>
+          <article class="card">
+            <div class="eyebrow">Sample project 03</div>
+            <h3>Laboratory quality principles</h3>
+            <p>A learning summary about sample traceability, accurate documentation, contamination prevention, and safe working practices.</p>
+            <div class="tag-list"><span class="tag">Quality</span><span class="tag">Lab practice</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><div class="eyebrow">Learning journey</div><h2>Education & experience</h2></div>
+          <p>Example timeline for demonstrating how your skills and interests are developing.</p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="date">2025 — Present</div>
+            <div><h3>BSc Biomedical Science</h3><p>Example University · Studying human biology, cell biology, chemistry, and laboratory science.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="date">Summer 2025</div>
+            <div><h3>Introductory laboratory programme</h3><p>Fictional training example covering safe working, accurate recording, microscopy, and basic laboratory workflows.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="date">Ongoing</div>
+            <div><h3>Independent scientific learning</h3><p>Reading research summaries, practising scientific communication, and building a portfolio of evidence-based work.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-panel">
+          <div>
+            <div class="eyebrow">Contact</div>
+            <h2>Let's talk science.</h2>
+            <p>This is placeholder contact information. Update it before sharing your real portfolio.</p>
+          </div>
+          <a class="button primary" href="mailto:alex.morgan@example.com">Email Alex ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> Alex Morgan · Sample portfolio</span>
+      <span>Built with HTML and CSS · GitHub Pages test</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+    menuButton.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>
